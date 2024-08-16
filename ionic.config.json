@@ -1,0 +1,7 @@
+{
+  "name": "papuQR",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
