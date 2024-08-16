@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { AuthAPIService } from '  ../Servicios/auth-api.service';
+import { AuthAPIService } from '../Servicios/auth-api.service';
 
 @Component({
   selector: 'app-home',
