@@ -32,7 +32,7 @@
               }
             ],
             "styles": [
-              "@angular/material/prebuilt-themes/cyan-orange.css",
+              "@angular/material/prebuilt-themes/azure-blue.css",
               "src/global.scss",
               "src/theme/variables.scss"
             ],
@@ -116,7 +116,7 @@
               }
             ],
             "styles": [
-              "@angular/material/prebuilt-themes/cyan-orange.css",
+              "@angular/material/prebuilt-themes/azure-blue.css",
               "src/global.scss",
               "src/theme/variables.scss"
             ],
@@ -145,7 +145,7 @@
     "schematicCollections": [
       "@ionic/angular-toolkit"
     ],
-    "analytics": "e4456100-51a7-4713-a895-d8f28c199919"
+    "analytics": "c33a7bec-e2a1-48fe-999c-bfd784e34a88"
   },
   "schematics": {
     "@ionic/angular-toolkit:component": {

@@ -12,13 +12,13 @@ const routes: Routes = [
     pathMatch: 'full'
   },
   {
-    path: 'login',
-    loadChildren: () => import('./access/login/login.module').then( m => m.LoginPageModule)
-  },  {
-    path: 'restablecer',
-    loadChildren: () => import('./restablecer/restablecer.module').then( m => m.RestablecerPageModule)
+    path: 'register',
+    loadChildren: () => import('./Access/register/register.module').then( m => m.RegisterPageModule)
   },
-
+  {
+    path: 'perfil',
+    loadChildren: () => import('./Access/perfil/perfil.module').then( m => m.PerfilPageModule)
+  },
 ];
 
 @NgModule({

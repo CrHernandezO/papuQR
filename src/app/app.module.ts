@@ -15,4 +15,4 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
   providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy }, provideAnimationsAsync()],
   bootstrap: [AppComponent],
 })
-export class AppModule {}
+export class AppModule { }
