@@ -14,29 +14,27 @@
   </ion-header>
 
   <div id="container">
-    <ion-card>
       <ion-card-header>
         <ion-card-subtitle>Login de acceso</ion-card-subtitle>
-        <ion-card-title>Credenciales</ion-card-title>
+        <ion-card-title >Credenciales</ion-card-title>
         <app-header></app-header>
       </ion-card-header>
-
-      <ion-card-content>
+      <ion-card-content >
         <div class="login">
-          <img src="./assets/img/logo.webp" alt="">
+          <img src="./assets/img/icon2.png" alt="">
         </div>
-        <ion-list>
+        <ion-list class="semi-transparent">
           <ion-item>
-            <ion-input [(ngModel)]="user.username" label="Usuario" labelPlacement="floating"
-              placeholder="Ingrese su usuario"></ion-input>
+            <ion-input [(ngModel)]="user.username" label="Usuario" 
+              placeholder="Ingrese su usuario" labelPlacement="floating"></ion-input>
           </ion-item>
           <ion-item>
-            <ion-input label="Contraseña" [(ngModel)]="user.password" type="password" labelPlacement="floating"
-              placeholder="Ingrese su contraseña">
+            <ion-input label="Contraseña" [(ngModel)]="user.password" type="password" 
+              placeholder="Ingrese su contraseña" labelPlacement="floating">
             </ion-input>
           </ion-item>
           <ion-item>
-            <ion-toggle justify="end">Recuerdame</ion-toggle><br /><br />
+            <ion-toggle >Recuerdame</ion-toggle><br /><br />
           </ion-item>
           <ion-item>
             <ion-label>{{mensaje}}</ion-label>
@@ -49,10 +47,9 @@
               <mat-spinner></mat-spinner>
             </ion-item>
           </div>
-          <ion-button fill="outline" (click)="validar()">Conectar</ion-button><br>
-          <ion-button fill="outline" [routerLink]="['/register']">Registrar</ion-button>
         </ion-list>
+        <ion-button id="kira"  (click)="validar()">Conectar</ion-button>
+        <ion-button id="Manzana" color="primary" [routerLink]="['/register']">Registrar</ion-button>
       </ion-card-content>
-    </ion-card>
   </div>
 </ion-content>

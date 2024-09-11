@@ -1,5 +1,5 @@
 ion-content {
-    --background: url("../assets/img/background.webp") no-repeat center center/cover;
+    --background: url("../assets/img/school2.avif") no-repeat center center/cover;
 }
 
 #container {
@@ -11,9 +11,16 @@ ion-content {
     transform: translateY(-50%);
 }
 
-#container ion-card ion-card-header h1 {
-    font-size: 26px;
-    font-weight: bolder;
+#container ion-toolbar {
+    font-size: 28px; /* Un poco más grande */
+    font-weight: 600; /* No tan bold como "bolder" pero aún prominente */
+    margin: 10px 0;   /* Margen para dar aire arriba y abajo */
+    padding: 5px 10px; /* Un poco de relleno para un mejor espaciado interno */
+    color: #333;       /* Un color más oscuro pero no completamente negro */
+    text-align: center; /* Centrado si el contenido es un título */
+    letter-spacing: 1px; /* Espaciado entre letras para darle más estilo */
+    line-height: 1.4;   /* Mejora la legibilidad aumentando el espacio entre líneas */
+    border-bottom: 2px solid rgba(0, 0, 0, 0.1); /* Opcional: una línea sutil debajo */
 }
 
 #container ion-card ion-card-content ion-list ion-item {
