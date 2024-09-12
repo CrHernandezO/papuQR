@@ -35,10 +35,8 @@
 #container #carga {
   text-align: center;
   display: block;
-  margin: auto;
-  width: fit-content;
-  padding-top: 5px;
-  padding-bottom: 15px;
+  width: 100%;
+  padding-top: 100%;
 }
 #container .login img {
   width: 200px;
@@ -65,11 +63,11 @@ ion-header {
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);   /* Sombra sutil */
 }
 ion-title {
-  font-size: 40px;         /* Ajusta el tamaño del texto */
-  font-weight: bold;       /* Asegura que sea visible */
-  text-align: center;      /* Centra el título */
-  line-height: 1.2;        /* Aumenta la altura de la línea para evitar el corte */
-  padding-bottom: 4px;     /* Añade un pequeño margen inferior */
+  font-size: 40px;        
+  font-weight: bold;      
+  text-align: center;      
+  line-height: 1.2;        
+  padding-bottom: 4px;    
   background-color: none;
 }
 
