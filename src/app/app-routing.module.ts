@@ -18,7 +18,11 @@ const routes: Routes = [
   {
     path: 'perfil',
     loadChildren: () => import('./Access/perfil/perfil.module').then( m => m.PerfilPageModule)
+  },  {
+    path: 'recover',
+    loadChildren: () => import('./recover/recover.module').then( m => m.RecoverPageModule)
   },
+
 ];
 
 @NgModule({
