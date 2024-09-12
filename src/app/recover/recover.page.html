@@ -15,14 +15,12 @@
       <ion-card-content>
         <ion-label>Ingrese su nombre para recuperar su contraseña</ion-label>
         <ion-item>
-          <ion-input type="text" placeholder="Ingrese correo"></ion-input>
+          <ion-input type="text" placeholder="Ingrese nombre"></ion-input>
         </ion-item>
-          <ion-button>Recuperar</ion-button>
+          <ion-button [routerLink]="['/home']">Recuperar</ion-button>
       </ion-card-content>
     </ion-card>
     <ion-card>
-      <ion-label>¿Ya tienes una cuenta?</ion-label>
-      <ion-button [routerLink]="['/home']">¡Has click aqui!</ion-button>
     </ion-card>
   </div>
 </ion-content>
