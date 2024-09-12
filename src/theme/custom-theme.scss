@@ -24,16 +24,18 @@ ion-content {
 }
 
 ion-title {
+    background-color: darkgreen;
+    color: whitesmoke !important;
     font-size: 30px;        
     font-weight: bold;      
     text-align: center;      
     line-height: 1.2;        
-    padding-bottom: 4px;    
-    background-color: none;
+    padding-bottom: 4px;        
   }
   
   ion-toolbar {
-    padding-bottom: 4px;     /* Añade espacio adicional en la parte inferior del toolbar */
+    padding: 0%;     /* Añade espacio adicional en la parte inferior del toolbar */
+    background-color: none;
   }
 
 #container ion-card ion-card-content ion-list ion-item {
@@ -46,4 +48,22 @@ ion-title {
     ion-input{
         text-align: center;
     }
+}
+
+.toolbar-background {
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    position: absolute;
+    -webkit-transform: translateZ(0);
+    transform: translateZ(0);
+    border-width: var(--border-width);
+    border-style: var(--border-style);
+    border-color: var(--border-color);
+    --background: black !important;
+    contain: strict;
+    opacity: calc(var(--opacity)* var(--opacity-scale));
+    z-index: -1;
+    pointer-events: none;
 }

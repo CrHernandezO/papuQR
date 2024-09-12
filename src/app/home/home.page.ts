@@ -32,7 +32,7 @@ export class HomePage {
     /* Creamos y configuramos la animacion */
     const animacion = this.animationController.create()
       .addElement(loginIcon)
-      .duration(2000)  // Ajusta la duración de la animación
+      .duration(4000)  // Ajusta la duración de la animación
       .iterations(Infinity)
       .keyframes([
         { offset: 0, transform: 'translateX(-100px)' },   // Inicio en la posición original
