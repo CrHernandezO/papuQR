@@ -44,15 +44,15 @@
           </ion-item>
           <div *ngIf="spinner">
             <ion-item id="carga">
-              <ion-label>Cargando</ion-label>
+              <ion-label>Cargando</ion-label><br>
             </ion-item>
-            <ion-item id="carga">
+            <ion-item id="spinner">
               <mat-spinner></mat-spinner>
             </ion-item>
           </div>
         </ion-list>
         <ion-button id="kira"  (click)="validar()">Conectar</ion-button>
-        <ion-button id="Manzana" color="primary" [routerLink]="['/register']">Registrar</ion-button>
+        <ion-button id="Manzana"  [routerLink]="['/register']">Registrar</ion-button>
       </ion-card-content>
   </div>
 </ion-content>

@@ -28,19 +28,21 @@ export class HomePage {
   animarLogin() {
     /* seleccionamos el item desde el Front con un query selector y reconocemos el elemento como HTMLElement para que sea compatible con la animacion */
     const loginIcon = document.querySelector(".login img") as HTMLElement;
+    
     /* Creamos y configuramos la animacion */
     const animacion = this.animationController.create()
       .addElement(loginIcon)
-      .duration(4000)
+      .duration(2000)  // Ajusta la duración de la animación
       .iterations(Infinity)
-      /* la configuracion de keyframe permite editar el diseño segun el tiempo de la animacion empezando desde 0 hasta 1 usando los decimales(0.5,0.25 ,0.2) */
       .keyframes([
-        { offset: 0, opacity: '1', width: "200px", height: "200px" },
-        { offset: 0.5, opacity: '0.5', width: "150px", height: "150px" },
-        { offset: 1, opacity: '1', width: "200px", height: "200px" }
+        { offset: 0, transform: 'translateX(-100px)' },   // Inicio en la posición original
+        { offset: 0.5, transform: 'translateX(100px)' }, // Mitad del tiempo, se mueve a la derecha
+        { offset: 1, transform: 'translateX(-100px)' }    // Vuelve a la posición original
       ]);
+      
     animacion.play();
   }
+  
 
   /* NGIF = permite realizar una validacion entre html y ts validando que la variable sea true o false */
   /* Permite cambiar el valor por defecto del spinner y comprobarlo con ngIF */

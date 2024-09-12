@@ -36,7 +36,12 @@
   text-align: center;
   display: block;
   width: 100%;
-  padding-top: 100%;
+  padding: 100%;
+}
+#container #spinner {
+  text-align: center;
+  display: block;
+  max-width: 50%;
 }
 #container .login img {
   width: 200px;
