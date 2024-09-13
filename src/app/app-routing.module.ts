@@ -22,7 +22,11 @@ const routes: Routes = [
   {
     path: 'recover',
     loadChildren: () => import('./Access/recover/recover.module').then( m => m.RecoverPageModule)
+  },  {
+    path: 'inicio',
+    loadChildren: () => import('./inicio/inicio.module').then( m => m.InicioPageModule)
   },
+
 
 ];
 

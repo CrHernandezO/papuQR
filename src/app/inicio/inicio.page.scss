@@ -1,6 +1,4 @@
-ion-content {
-    --background: url("../assets/img/school2.avif") no-repeat center center/cover;
-}
+
 
 #container {
     text-align: center;
@@ -32,25 +30,9 @@ ion-title {
     line-height: 1.2;        
     padding-bottom: 4px;        
   }
-  
-  ion-toolbar {
-    padding: 5%;     /* Añade espacio adicional en la parte inferior del toolbar */
-    background-color: none;
-  }
-
-#container ion-card ion-card-content ion-list ion-item {
-    --border-width: 0;
-    --border-color: green !important;
-    color: white !important;
-    
-
-    ion-label {
-        text-align: start;
-        color: black !important;
-    }
-    ion-input{
-        text-align: center;
-        color: black !important;
-        background-color: orange !important;
-    }
+ 
+  .Entrar {
+    --background: #4CAF50;
+    border-radius: 25px;
+    color: white;
 }
