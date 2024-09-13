@@ -16,13 +16,14 @@ const routes: Routes = [
     loadChildren: () => import('./Access/register/register.module').then( m => m.RegisterPageModule)
   },
   {
-    path: 'perfil',
-    loadChildren: () => import('./Access/perfil/perfil.module').then( m => m.PerfilPageModule)
+    path: 'bienvenida',
+    loadChildren: () => import('./Access/bienvenida/bienvenida.module').then( m => m.BienvenidaPageModule)
   },
   {
     path: 'recover',
     loadChildren: () => import('./Access/recover/recover.module').then( m => m.RecoverPageModule)
-  },  {
+  },
+  {
     path: 'inicio',
     loadChildren: () => import('./inicio/inicio.module').then( m => m.InicioPageModule)
   },

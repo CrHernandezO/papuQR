@@ -13,70 +13,74 @@ export class HomePage {
     username: '',
     password: '',
   };
-  /* mensaje de respuesta */
+  /* Mensaje de respuesta */
   mensaje = '';
-  /* Estado de carga */
+  /* Estado del spinner */
   spinner = false;
+  /* Estado del toggle "Recuérdame" */
+  rememberMe = false;
 
-  constructor(private router: Router, private animationController: AnimationController) {
+  constructor(
+    private router: Router,
+    private animationController: AnimationController
+  ) {}
 
-
-  }
   ngAfterContentInit() {
     this.animarLogin();
   }
+
   animarLogin() {
-    /* seleccionamos el item desde el Front con un query selector y reconocemos el elemento como HTMLElement para que sea compatible con la animacion */
-    const loginIcon = document.querySelector(".login img") as HTMLElement;
-    
-    /* Creamos y configuramos la animacion */
-    const animacion = this.animationController.create()
+    const loginIcon = document.querySelector('.login img') as HTMLElement;
+
+    const animacion = this.animationController
+      .create()
       .addElement(loginIcon)
-      .duration(4000)  // Ajusta la duración de la animación
+      .duration(4000) // Ajusta la duración de la animación
       .iterations(Infinity)
       .keyframes([
-        { offset: 0, transform: 'translateX(-100px)' },   // Inicio en la posición original
-        { offset: 0.5, transform: 'translateX(100px)' }, // Mitad del tiempo, se mueve a la derecha
-        { offset: 1, transform: 'translateX(-100px)' }    // Vuelve a la posición original
+        { offset: 0, transform: 'translateX(-100px)' },
+        { offset: 0.5, transform: 'translateX(100px)' },
+        { offset: 1, transform: 'translateX(-100px)' },
       ]);
-      
+
     animacion.play();
   }
-  
 
-  /* NGIF = permite realizar una validacion entre html y ts validando que la variable sea true o false */
-  /* Permite cambiar el valor por defecto del spinner y comprobarlo con ngIF */
-  cambiarSpinner() {
-    this.spinner = !this.spinner;
+  /* Función para mostrar el spinner */
+  mostrarSpinner() {
+    this.spinner = true;
+
+    // Ocultar el spinner después de 3 segundos (simulación de carga)
+    setTimeout(() => {
+      this.spinner = false;
+    }, 3000);
   }
+
+  /* Validación del login */
   validar() {
-    if (this.user.username.length != 0) {
-      if (this.user.password.length != 0) {
-        //Funciona
-        this.mensaje = 'Conexion exitosa';
+    this.mostrarSpinner(); // Muestra el spinner
+
+    if (this.user.username.length !== 0) {
+      if (this.user.password.length !== 0) {
+        this.mensaje = 'Conexión exitosa';
         let navigationExtras: NavigationExtras = {
           state: {
             username: this.user.username,
             password: this.user.password,
+            rememberMe: this.rememberMe, // Añadir el estado del toggle
           },
         };
-        this.cambiarSpinner();
-        /* setTimeout = permite generar un pequeño delay para realizar la accion */
-        setTimeout(() => {
 
-          this.router.navigate(['/perfil'], navigationExtras);
-          this.cambiarSpinner();
-          this.mensaje = "";
-        }, 3000);
+        setTimeout(() => {
+          this.router.navigate(['/bienvenida'], navigationExtras);
+        }, 3000); // Simula el retraso para la carga
       } else {
-        console.log('Contraseña vacia');
-        this.mensaje = 'Contraseña vacia';
-        //No funciona
+        this.mensaje = 'Contraseña vacía';
+        this.spinner = false; // Oculta el spinner si hay un error
       }
     } else {
-      console.log('Usuario vacio');
-      this.mensaje = 'Usuario Vacio';
-      //Tampoco funciona
+      this.mensaje = 'Usuario vacío';
+      this.spinner = false; // Oculta el spinner si hay un error
     }
   }
 }

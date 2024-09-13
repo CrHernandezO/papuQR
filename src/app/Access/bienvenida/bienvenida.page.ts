@@ -2,11 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
 @Component({
-  selector: 'app-perfil',
-  templateUrl: './perfil.page.html',
-  styleUrls: ['./perfil.page.scss'],
+  selector: 'app-index',
+  templateUrl: './bienvenida.page.html',
+  styleUrls: ['./bienvenida.page.scss'],
 })
-export class PerfilPage implements OnInit {
+export class BienvenidaPage implements OnInit {
   username = '';
   constructor(private router: Router) {
     const navegacion = this.router.getCurrentNavigation();

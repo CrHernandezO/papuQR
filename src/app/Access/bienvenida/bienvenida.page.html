@@ -1,0 +1,31 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>Inicio</ion-title>
+  </ion-toolbar>
+</ion-header>
+  
+
+<ion-content [fullscreen]="true" class="inicio-content">
+  <ion-header collapse="condense">
+    <ion-toolbar>
+      <ion-title size="large">Inicio</ion-title>
+    </ion-toolbar>
+  </ion-header>
+  
+  <div id="container">
+    <ion-card class="inicio-card">
+      <ion-card-header>
+        <ion-card-title>
+          <h1>¡Hola, {{username}}!</h1>
+        </ion-card-title>
+        <ion-card-subtitle>¡Bienvenido/a a tu perfil!</ion-card-subtitle>
+      </ion-card-header>
+      <ion-card-content>
+        <p class="welcome-message">Estamos encantados de tenerte aquí. Explora la aplicación y disfruta de todas nuestras funcionalidades.</p>
+      </ion-card-content>
+    </ion-card>
+  </div>
+</ion-content>

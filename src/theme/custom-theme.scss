@@ -1,5 +1,5 @@
 ion-content {
-    --background: url("../assets/img/school2.avif") no-repeat center center/cover;
+    --background: url("../assets/img/prueba3.jpg") no-repeat center center/cover;
 }
 
 #container {
@@ -23,20 +23,30 @@ ion-content {
     border-bottom: 2px solid rgba(0, 0, 0, 0.1); /* Opcional: una línea sutil debajo */
 }
 
-ion-title {
-    background-color: green !important;
-    color: whitesmoke !important;
-    font-size: 30px;        
-    font-weight: bold;      
-    text-align: center;      
-    line-height: 1.2;        
-    padding-bottom: 4px;        
+/* Estilos para el ion-toolbar */
+ion-toolbar {
+    --background: transparent; /* Fondo transparente para eliminar el color de fondo */
+    padding: 0; /* Elimina el padding interno del toolbar */
+    margin: 0; /* Elimina el margen si es necesario */
   }
   
-  ion-toolbar {
-    padding: 5%;     /* Añade espacio adicional en la parte inferior del toolbar */
-    background-color: none;
+  /* Estilos para el ion-title dentro del toolbar */
+  ion-title {
+    background-color: green !important; /* Fondo verde para el título */
+    color: whitesmoke !important; /* Texto blanco */
+    font-size: 30px; /* Tamaño del texto del título */
+    font-weight: bold; /* Negrita para el texto */
+    text-align: center; /* Centra el texto */
+    line-height: 1.2; /* Altura de línea */
+    padding: 0; /* Elimina el padding para ajustar el espaciado */
+    margin: 0; /* Elimina el margen para ajustar el espaciado */
   }
+  
+  /* Opcional: Ajustar el ion-buttons si hay algún espaciado extra */
+  ion-buttons {
+    margin: 0; /* Elimina el margen si es necesario */
+  }
+  
 
 #container ion-card ion-card-content ion-list ion-item {
     --border-width: 0;
@@ -51,6 +61,6 @@ ion-title {
     ion-input{
         text-align: center;
         color: black !important;
-        background-color: orange !important;
+        background-color: darkgreen !important;
     }
 }
