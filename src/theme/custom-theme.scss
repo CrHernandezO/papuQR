@@ -34,7 +34,7 @@ ion-title {
   }
   
   ion-toolbar {
-    padding: 0%;     /* Añade espacio adicional en la parte inferior del toolbar */
+    padding: 5%;     /* Añade espacio adicional en la parte inferior del toolbar */
     background-color: none;
   }
 
@@ -48,22 +48,4 @@ ion-title {
     ion-input{
         text-align: center;
     }
-}
-
-.toolbar-background {
-    left: 0;
-    right: 0;
-    top: 0;
-    bottom: 0;
-    position: absolute;
-    -webkit-transform: translateZ(0);
-    transform: translateZ(0);
-    border-width: var(--border-width);
-    border-style: var(--border-style);
-    border-color: var(--border-color);
-    --background: black !important;
-    contain: strict;
-    opacity: calc(var(--opacity)* var(--opacity-scale));
-    z-index: -1;
-    pointer-events: none;
 }
