@@ -31,7 +31,7 @@ ion-title {
     padding-bottom: 4px;        
   }
  
-  .Entrar {
+.Entrar {
     --background: #4CAF50;
     border-radius: 25px;
     color: white;
@@ -43,3 +43,10 @@ ion-title {
     object-fit: fixed;
     animation: none;
   }
+
+.custom-button-outline {
+    --background: #4CAF50;
+    border-radius: 25px;
+    --border-color: #4CAF50;
+    --color: white;
+}
