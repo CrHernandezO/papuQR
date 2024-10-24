@@ -1,0 +1,31 @@
+<ion-content>
+  <ion-accordion-group>
+      <ion-accordion value="Viajes">
+        <ion-item slot="header" color="light">
+          <ion-label>Viajes</ion-label>
+        </ion-item>
+        <div class="ion-padding" slot="content" *ngFor="let v of viajes">
+          <ion-card *ngIf="v.estado_viaje=='pendiente'">
+              <ion-card-header>
+                  <ion-card-title>{{v.nombre_destino}}</ion-card-title>
+                  <ion-card-subtitle>{{v.estado_viaje}}</ion-card-subtitle>
+              </ion-card-header>
+              <ion-card-content>
+                  <p>Asientos disponibles: {{v.asientos_disponibles}}</p>
+                  <p>Precio: {{v.distancia_metros/200 * 100 | currency:'CLP'}}</p>
+              </ion-card-content>
+              <ion-button routerLink="/home/viajes/detalle-reserva/{{v.id}}" size="block" [disabled]="v.asientos_disponibles == 0">Ver detalle</ion-button>
+          </ion-card>
+        </div>
+      </ion-accordion>
+    </ion-accordion-group>
+
+  <ion-input label="Latitud" [(ngModel)]="latitud"></ion-input>
+  <ion-input label="Longitud" [(ngModel)]="longitud"></ion-input>
+  <ion-input label="Dirección" [(ngModel)]="direccion"></ion-input>
+  <ion-input label="Distancia metros" [(ngModel)]="distancia_metros"></ion-input>
+  <ion-input label="Tiempo segundos" [(ngModel)]="tiempo_segundos"></ion-input>
+  
+  <div id="map_html"></div>
+
+</ion-content>

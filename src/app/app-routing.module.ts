@@ -1,32 +1,42 @@
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
+import { authGuard } from './services/auth.guard';
+
 
 const routes: Routes = [
   {
-    path: 'inicio',
-    loadChildren: () => import('./inicio/inicio.module').then( m => m.InicioPageModule)
+    path: 'home',
+    canActivate: [authGuard],
+    loadChildren: () => import('./pages/home/home.module').then( m => m.HomePageModule)
   },
   {
     path: '',
-    redirectTo: 'inicio',
+    redirectTo: 'home',
     pathMatch: 'full'
   },
   {
-    path: 'register',
-    loadChildren: () => import('./Access/register/register.module').then( m => m.RegisterPageModule)
+    path: 'login',
+    loadChildren: () => import('./pages/login/login.module').then( m => m.LoginPageModule)
   },
   {
-    path: 'bienvenida',
-    loadChildren: () => import('./Access/bienvenida/bienvenida.module').then( m => m.BienvenidaPageModule)
+    path: 'registro',
+    loadChildren: () => import('./pages/registro/registro.module').then( m => m.RegistroPageModule)
   },
   {
-    path: 'recover',
-    loadChildren: () => import('./Access/recover/recover.module').then( m => m.RecoverPageModule)
+    path: 'recuperar',
+    loadChildren: () => import('./pages/recuperar/recuperar.module').then( m => m.RecuperarPageModule)
   },
   {
-    path: 'home',
-    loadChildren: () => import('./home/home.module').then( m => m.HomePageModule)
+    path: 'home/viajes/detalle-reserva/:id',
+    loadChildren: () => import('./pages/detalle-reserva/detalle-reserva.module').then( m => m.DetalleReservaPageModule)
   },
+  {
+    path: '**',
+    loadChildren: () => import('./pages/error404/error404.module').then( m => m.Error404PageModule)
+  },
+  
+
+  
 
 
 ];

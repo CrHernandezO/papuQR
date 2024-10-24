@@ -1,0 +1,23 @@
+<ion-header>
+  <ion-toolbar class="toolbar-turquesa"> 
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/login"></ion-back-button> 
+    </ion-buttons>
+    <ion-title>{{titulo}}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-card>
+    <ion-card-content>
+      <form #formulario="ngForm">
+        <ion-input [(ngModel)]="correo" name="correo" type="email" label="Ingresar Correo" labelPlacement="stacked" fill="outline"></ion-input>
+        
+        <!-- Mensaje de error si el correo no ha sido ingresado -->
+        <div *ngIf="formulario.submitted && !correo" class="error-message">El correo es obligatorio.</div>
+      </form>
+    </ion-card-content>
+    <ion-button (click)="recuperar()" id="present-alert" type="submit" size="block" class="toolbar-naranja">RESTABLECER</ion-button>
+  </ion-card>
+</ion-content>
+

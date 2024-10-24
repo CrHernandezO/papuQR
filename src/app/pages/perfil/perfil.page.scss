@@ -1,0 +1,15 @@
+.perfil-container {
+    text-align: center;
+    margin-top: 20px;
+  }
+  
+  .avatar-usuario {
+    display: inline-block;
+    margin-bottom: 20px;
+    ion-icon {
+      width: 120px;
+      height: 120px;
+      color: #3880ff; /* Color azul por defecto de Ionic */
+    }
+  }
+  
