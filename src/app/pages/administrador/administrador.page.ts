@@ -3,7 +3,6 @@ import { FormBuilder, FormGroup, Validators, AbstractControl } from '@angular/fo
 import { AlertController, NavController } from '@ionic/angular';
 import { Router } from '@angular/router';
 import * as moment from 'moment';
-import { UsuarioService } from 'src/app/services/usuario.service';
 import { Storage } from '@ionic/storage-angular';  // Importar Storage
 
 @Component({
@@ -26,7 +25,6 @@ export class AdministradorPage implements OnInit {
     private formBuilder: FormBuilder,
     private alertController: AlertController,  
     private navCtrl: NavController,
-    private usuarioService: UsuarioService,
     private router: Router,
     private storage: Storage  // Inyectar Storage
   ) {
@@ -39,52 +37,14 @@ export class AdministradorPage implements OnInit {
       rut: ['', [Validators.required, Validators.minLength(9), Validators.maxLength(10), this.validarRut.bind(this)]],  
       nombre: ['', [Validators.required, Validators.pattern('^[a-zA-Z]+$')]], 
       apellido: ['', [Validators.required, Validators.pattern('^[a-zA-Z]+$')]], 
-      contraseña: ['', [Validators.required, Validators.minLength(8)]],
-      rep_contraseña: ['', Validators.required],
+      password: ['', [Validators.required, Validators.minLength(8)]],
+      re_password: ['', Validators.required],
       fecha_nacimiento: ['', [Validators.required, this.validarEdadMinima]],
-      tiene_vehiculo: ['', Validators.required],
-      marca_vehiculo: [''],
-      modelo_vehiculo: [''],
-      cant_asientos: [''],
-      patente: [''],
-      anio_inscripcion: ['']
+      esprofesor: ['', Validators.required],
     }, { validators: this.passwordsCoinciden });
   
     // Cargar lista de usuarios
     this.cargarUsuarios();
-  
-    // Validación dinámica de los campos de vehículo y ajuste de tipo de usuario
-    this.persona.get('tiene_vehiculo')?.valueChanges.subscribe(value => {
-      if (value === 'si') {
-        // Si el usuario tiene vehículo, activamos las validaciones
-        this.persona.get('marca_vehiculo')?.setValidators([Validators.required, Validators.pattern('^[a-zA-Z]+$')]);
-        this.persona.get('modelo_vehiculo')?.setValidators([Validators.required, Validators.pattern('^[a-zA-Z]+$')]);
-        this.persona.get('cant_asientos')?.setValidators([Validators.required, Validators.min(4), Validators.max(32), Validators.pattern('^[0-9]+$')]);
-        this.persona.get('patente')?.setValidators([Validators.required, Validators.pattern('^[A-Za-z]{2}[A-Za-z]{2}[0-9]{2}$')]);
-        this.persona.get('anio_inscripcion')?.setValidators([Validators.required, Validators.min(2012), Validators.max(2024)]);
-      } else {
-        // Si el usuario no tiene vehículo, limpiamos los campos y removemos las validaciones
-        this.persona.get('marca_vehiculo')?.clearValidators();
-        this.persona.get('modelo_vehiculo')?.clearValidators();
-        this.persona.get('cant_asientos')?.clearValidators();
-        this.persona.get('patente')?.clearValidators();
-        this.persona.get('anio_inscripcion')?.clearValidators();
-  
-        // Limpiar los valores de los campos relacionados con el vehículo
-        this.persona.get('marca_vehiculo')?.setValue('');
-        this.persona.get('modelo_vehiculo')?.setValue('');
-        this.persona.get('cant_asientos')?.setValue('');
-        this.persona.get('patente')?.setValue('');
-        this.persona.get('anio_inscripcion')?.setValue('');
-      }
-  
-      // Actualizar validaciones y valores
-      this.persona.get('marca_vehiculo')?.updateValueAndValidity();
-      this.persona.get('modelo_vehiculo')?.updateValueAndValidity();
-      this.persona.get('cant_asientos')?.updateValueAndValidity();
-      this.persona.get('patente')?.updateValueAndValidity();
-      this.persona.get('anio_inscripcion')?.updateValueAndValidity();
-    });
   }
   
 
@@ -104,11 +64,11 @@ export class AdministradorPage implements OnInit {
     this.usuarios = storedUsers || [];  // Obtener la lista de usuarios o inicializar vacía
   }
 
-  // Validar que las contraseñas coincidan
+  // Validar que las passwords coincidan
   passwordsCoinciden(formGroup: AbstractControl) {
-    const contraseña = formGroup.get('contraseña')?.value;
-    const repContraseña = formGroup.get('rep_contraseña')?.value;
-    return contraseña === repContraseña ? null : { noCoinciden: true };
+    const password = formGroup.get('password')?.value;
+    const reppassword = formGroup.get('re_password')?.value;
+    return password === reppassword ? null : { noCoinciden: true };
   }
 
   // Validar que la fecha de nacimiento sea de al menos 18 años
@@ -137,7 +97,7 @@ export class AdministradorPage implements OnInit {
   async guardarCambios() {
     const usuarioData = { ...this.persona.value };
     usuarioData.fecha_nacimiento = moment(usuarioData.fecha_nacimiento).format('YYYY-MM-DD'); // Formato actualizado
-    usuarioData.tipo = this.persona.get('tiene_vehiculo')?.value === 'si' ? 'Conductor' : 'Alumno'; // Asignar tipo dinámicamente
+    usuarioData.tipo = this.persona.get('esprofesor')?.value === 'si' ? 'Profesor' : 'Alumno'; // Asignar tipo dinámicamente
 
     const storedUsers = await this.storage.get('usuarios') || [];
     
@@ -174,7 +134,7 @@ export class AdministradorPage implements OnInit {
     usuarioData.fecha_nacimiento = moment(usuarioData.fecha_nacimiento).format('YYYY-MM-DD'); // Formato de fecha
     
     // Ajuste dinámico del tipo de usuario según si tiene vehículo
-    usuarioData.tipo = this.persona.get('tiene_vehiculo')?.value === 'si' ? 'Conductor' : 'Alumno'; 
+    usuarioData.tipo = this.persona.get('esprofesor')?.value === 'si' ? 'Profesor' : 'Alumno'; 
     
     const storedUsers = await this.storage.get('usuarios') || []; // Obtener usuarios del almacenamiento
     const usuarioExistente = storedUsers.find((user: any) => user.rut === usuarioData.rut);

@@ -3,82 +3,65 @@ import { FormBuilder, FormGroup, Validators, AbstractControl } from '@angular/fo
 import { AlertController, NavController } from '@ionic/angular';
 import { Router } from '@angular/router';
 import * as moment from 'moment';
-import { UsuarioService } from 'src/app/services/usuario.service';
-import { Storage } from '@ionic/storage-angular';  // Importar Storage
+import { ApiService } from 'src/app/api.service'; // Importar ApiService
 
 @Component({
   selector: 'app-registro',
   templateUrl: './registro.page.html',
   styleUrls: ['./registro.page.scss'],
 })
-export class RegistroPage implements OnInit{
+export class RegistroPage implements OnInit {
 
   persona: FormGroup;
   bienvenida: string = 'Bienvenido, por favor complete el formulario.';
   titulo: string = 'Registro de Usuario'; 
 
-  ngOnInit() {
-  }
+  ngOnInit() {}
 
   constructor(
     private formBuilder: FormBuilder,
     private alertController: AlertController,  
     private navCtrl: NavController,
-    private usuarioService: UsuarioService,
-    private router: Router,
-    private storage: Storage  // Inyectar Storage
+    private apiService: ApiService, // Inyectar ApiService
+    private router: Router
   ) {
-    this.initStorage();  // Inicializar el storage
-
     this.persona = this.formBuilder.group({
       correo: ['', [Validators.required, Validators.pattern('^[a-zA-Z0-9._%+-]+@duocuc\\.cl$')]],  
       numero_celular: ['', [Validators.required, Validators.pattern('^\\+569[0-9]{8}$')]], 
       rut: ['', [Validators.required, Validators.minLength(9), Validators.maxLength(10), this.validarRut.bind(this)]],  
       nombre: ['', [Validators.required, Validators.pattern("^[a-zA-ZáéíóúÁÉÍÓÚñÑ ]+$")]], 
       apellido: ['', [Validators.required, Validators.pattern("^[a-zA-ZáéíóúÁÉÍÓÚñÑ ]+$")]], 
-      contraseña: ['',[Validators.required, Validators.pattern("^(?=.*[-!#$%&/()?¡_.])(?=.*[A-Za-z])(?=.*[a-z]).{8,}$")]],
-      rep_contraseña: ['',[Validators.required, Validators.pattern("^(?=.*[-!#$%&/()?¡_.])(?=.*[A-Za-z])(?=.*[a-z]).{8,}$")]],
+      password: ['',[Validators.required, Validators.pattern("^(?=.*[-!#$%&/()?¡_.])(?=.*[A-Za-z])(?=.*[a-z]).{8,}$")]], 
+      re_password: ['',[Validators.required, Validators.pattern("^(?=.*[-!#$%&/()?¡_.])(?=.*[A-Za-z])(?=.*[a-z]).{8,}$")]], 
       fecha_nacimiento: ['', [Validators.required, this.validarEdadMinima]],
-      tiene_vehiculo: ['', Validators.required],
-      marca_vehiculo: [''],
-      modelo_vehiculo: [''],
-      cant_asientos: [''],
-      patente: [''],
+      esprofesor: ['', Validators.required],
+      asignatura: [''],
+      cant_alum: [''],
       anio_inscripcion: ['']
     }, { validators: this.passwordsCoinciden });
 
-    this.persona.get('tiene_vehiculo')?.valueChanges.subscribe(value => {
+    // Lógica para validaciones dinámicas
+    this.persona.get('esprofesor')?.valueChanges.subscribe(value => {
       if (value === 'si') {
-        this.persona.get('marca_vehiculo')?.setValidators([Validators.required, Validators.pattern('^[a-zA-Z]+$')]);
-        this.persona.get('modelo_vehiculo')?.setValidators([Validators.required, Validators.pattern('^[a-zA-Z]+$')]);
-        this.persona.get('cant_asientos')?.setValidators([Validators.required, Validators.min(4), Validators.max(32),Validators.pattern('^[0-9]+$')]);
-        this.persona.get('patente')?.setValidators([Validators.required, Validators.pattern('^[A-Za-z]{2}[A-Za-z]{2}[0-9]{2}$')]); // Patente formato chileno
-        this.persona.get('anio_inscripcion')?.setValidators([Validators.required, Validators.min(2012), Validators.max(2024)]); // Año de inscripción entre 2012 y 2024
+        this.persona.get('asignatura')?.setValidators([Validators.required, Validators.pattern('^[a-zA-Z]+$')]);
+        this.persona.get('cant_alum')?.setValidators([Validators.required, Validators.min(4), Validators.max(32), Validators.pattern('^[0-9]+$')]);
+        this.persona.get('anio_inscripcion')?.setValidators([Validators.required, Validators.min(2012), Validators.max(2024)]);
       } else { 
-        this.persona.get('marca_vehiculo')?.clearValidators();
-        this.persona.get('modelo_vehiculo')?.clearValidators();
-        this.persona.get('cant_asientos')?.clearValidators();
-        this.persona.get('patente')?.clearValidators();
+        this.persona.get('asignatura')?.clearValidators();
+        this.persona.get('cant_alum')?.clearValidators();
         this.persona.get('anio_inscripcion')?.clearValidators();
       }
-      this.persona.get('marca_vehiculo')?.updateValueAndValidity();
-      this.persona.get('modelo_vehiculo')?.updateValueAndValidity();
-      this.persona.get('cant_asientos')?.updateValueAndValidity();
-      this.persona.get('patente')?.updateValueAndValidity();
+      this.persona.get('asignatura')?.updateValueAndValidity();
+      this.persona.get('cant_alum')?.updateValueAndValidity();
       this.persona.get('anio_inscripcion')?.updateValueAndValidity();
     });
   }
 
-  // Inicializar el Storage
-  async initStorage() {
-    await this.storage.create();
-  }
-
-  // Validar que las contraseñas coincidan
+  // Validar que las passwords coincidan
   passwordsCoinciden(formGroup: AbstractControl) {
-    const contraseña = formGroup.get('contraseña')?.value;
-    const repContraseña = formGroup.get('rep_contraseña')?.value;
-    return contraseña === repContraseña ? null : { noCoinciden: true };
+    const password = formGroup.get( 'password')?.value;
+    const re_password = formGroup.get('rep_password')?.value;
+    return password === re_password ? null : { noCoinciden: true };
   }
 
   // Validar que la fecha de nacimiento sea de al menos 18 años
@@ -103,36 +86,35 @@ export class RegistroPage implements OnInit{
     await alert.present();
   }
 
+  // Función para registrar al usuario
   public async registroUsuario(): Promise<void> {
     try {
       const usuarioData = { ...this.persona.value };
-
       usuarioData.fecha_nacimiento = moment(usuarioData.fecha_nacimiento).format('YYYY-MM-DD');
       
-      if (usuarioData.tiene_vehiculo === 'si') {
-        usuarioData.tipo = 'Conductor';  
+      if (usuarioData.esprofesor === 'si') {
+        usuarioData.tipo = 'Profesor';  
       } else {
         usuarioData.tipo = 'Alumno'; 
       }
-  
-      const usuariosExistentes = await this.storage.get('usuarios') || [];
-  
-      const usuarioExistente = usuariosExistentes.find((user: any) => user.rut === usuarioData.rut);
-  
-      if (!usuarioExistente) {
-        usuariosExistentes.push(usuarioData);
-        await this.storage.set('usuarios', usuariosExistentes);  // Guardar los usuarios en Storage
-        console.log("El Usuario se ha creado con éxito!");
-  
-        this.mostrarNotificacion('Usuario creado', 'El usuario ha sido registrado con éxito.', true);
-      } else {
-        this.mostrarNotificacion('Error', 'El usuario con este RUT ya existe.', false);
-      }
+
+      // Usar ApiService para registrar el usuario en el servidor
+      this.apiService.registerUser(usuarioData).subscribe(
+        async (response) => {
+          console.log("El Usuario se ha creado con éxito!", response);
+          this.mostrarNotificacion('Usuario creado', 'El usuario ha sido registrado con éxito.', true);
+        },
+        (error) => {
+          console.error('Error al registrar usuario', error);
+          this.mostrarNotificacion('Error', 'Hubo un error al registrar al usuario.', false);
+        }
+      );
     } catch (error) {
       console.log("Ocurrió un error durante el registro del usuario", error);
     }
   }
-  
+
+  // Método para mostrar notificaciones de éxito o error
   private async mostrarNotificacion(header: string, message: string, redirigir: boolean): Promise<void> {
     const alert = await this.alertController.create({
       header,
@@ -146,7 +128,7 @@ export class RegistroPage implements OnInit{
         }
       }]
     });
-  
+
     await alert.present();
   }
 

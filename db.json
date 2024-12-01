@@ -1,0 +1,55 @@
+{
+  "users": [
+    {
+      "id": "1",
+      "email": "user1@example.com",
+      "password": "12345"
+    },
+    {
+      "id": "a129",
+      "tipo": "Administrador",
+      "email": "admin@duocuc.cl",
+      "rep_password": "12345678",
+      "numero_celular": "+56912345678",
+      "rut": "12345678-9",
+      "nombre": "Takamura",
+      "apellido": "Riquelme",
+      "password": "12345678",
+      "fecha_nacimiento": "1999-08-15"
+    },
+    {
+      "id": "a712",
+      "email": "cr.hernandezo@duocuc.cl",
+      "password": "Titopollo12.",
+      "rep_password": "Titopollo12.",
+      "rut": "21512189-5",
+      "nombre": "crist",
+      "apellido": "hernan",
+      "numero_celular": "+56932394483",
+      "fecha_nacimiento": "2004-02-21",
+      "esprofesor": "si",
+      "asignatura": "PGTY",
+      "cant_alum": 20,
+      "anio_inscripcion": "2024",
+      "tipo": "Profesor"
+    }
+  ],
+  "login": [
+    {
+      "id": "9890",
+      "email": "cr.hernandezo@duocuc.cl",
+      "password": "Titopollo12."
+    },
+    {
+      "id": "041b",
+      "email": "cr.hernandezo@duocuc.cl",
+      "password": "Titopollo12."
+    },
+    {
+      "id": "099c",
+      "email": "cr.hernandezo@duocuc.cl",
+      "password": "Titopollo12."
+    }
+  ],
+  "recover": []
+}

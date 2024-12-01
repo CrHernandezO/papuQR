@@ -52,13 +52,13 @@
         El apellido es obligatorio.
       </ion-text>
       
-      <ion-input formControlName="contraseña" type="password" labelPlacement="stacked" label="Contraseña (Mínimo 8 caracteres.)"></ion-input>
-      <ion-text *ngIf="persona?.get('contraseña')?.hasError('required') && persona?.get('contraseña')?.touched" color="danger">
-        La contraseña es obligatoria.
+      <ion-input formControlName="password" type="password" labelPlacement="stacked" label="Contraseña (Mínimo 8 caracteres.)"></ion-input>
+      <ion-text *ngIf="persona?.get('password')?.hasError('required') && persona?.get('password')?.touched" color="danger">
+        La password es obligatoria.
       </ion-text>
       
-      <ion-input formControlName="rep_contraseña" type="password" labelPlacement="stacked" label="Repetir Contraseña"></ion-input>
-      <ion-text *ngIf="persona?.hasError('noCoinciden') && persona?.get('rep_contraseña')?.touched" color="danger">
+      <ion-input formControlName="re_password" type="password" labelPlacement="stacked" label="Repetir Contraseña"></ion-input>
+      <ion-text *ngIf="persona?.hasError('noCoinciden') && persona?.get('re_password')?.touched" color="danger">
         Las contraseñas no coinciden.
       </ion-text>
       
@@ -70,22 +70,14 @@
         Debes tener al menos 18 años para crear una cuenta.
       </ion-text>
       
-      <ion-label>Tiene Vehículo:</ion-label>
+      <ion-label>Tiene Asignaturasa instruir?:</ion-label>
       <br>
-      <ion-radio-group formControlName="tiene_vehiculo">
+      <ion-radio-group formControlName="esprofesor">
         <ion-radio value="si" style="margin: 5%;">Sí</ion-radio>
 
         <ion-radio value="no" style="margin: 5%;">No</ion-radio>
       </ion-radio-group>
       <br>
-
-      <!-- Campos adicionales si tiene vehículo -->
-      <ion-input *ngIf="persona.controls['tiene_vehiculo'].value == 'si'" formControlName="marca_vehiculo" type="text" label="Marca Vehículo" labelPlacement="stacked"></ion-input>
-      <ion-input *ngIf="persona.controls['tiene_vehiculo'].value == 'si'" formControlName="modelo_vehiculo" type="text" label="Modelo Vehículo" labelPlacement="stacked"></ion-input>
-      <ion-input *ngIf="persona.controls['tiene_vehiculo'].value == 'si'" formControlName="cant_asientos" type="text" label="Cantidad de Asientos (Minimo 4, Maximo 32)" labelPlacement="stacked"></ion-input>
-      <ion-input *ngIf="persona.controls['tiene_vehiculo'].value == 'si'" formControlName="patente" type="text" label="Patente del Vehículo" labelPlacement="stacked"></ion-input>
-      <ion-input *ngIf="persona.controls['tiene_vehiculo'].value == 'si'" formControlName="anio_inscripcion" type="text" label="Año de Inscripción" labelPlacement="stacked"></ion-input>
-
       <!-- Botones -->
        <!-- Formulario para editar o agregar usuarios -->
        <form [formGroup]="persona" (ngSubmit)="guardarCambios()">

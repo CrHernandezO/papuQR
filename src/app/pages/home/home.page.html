@@ -1,37 +1,45 @@
 <ion-header>
   <ion-toolbar class="toolbar-turquesa">
-    <p slot="end">Bienvenido: {{usuario.nombre | titlecase}}</p>
     <ion-buttons slot="end">
       <ion-button (click)="logout()">
         <ion-icon name="log-out"></ion-icon>
       </ion-button> 
     </ion-buttons>
-    <ion-title>
-      Home
-    </ion-title>
+    <ion-title>Home</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
+  <ion-content>
+    <!-- Sección de bienvenida con icono de casa -->
+    <div class="bienvenida-container">
+      <ion-card>
+        <ion-icon name="home-outline" class="home-icon"></ion-icon>
+        <h2>Bienvenido a RegistApp, {{usuario.nombre | titlecase}}!</h2>
+        <p>Estamos encantados de tenerte aquí.</p>
+      </ion-card>
+  
+    </div>
+  </ion-content>
+
   <ion-tabs>
     <ion-tab-bar slot="bottom">
-      <ion-tab-button tab="listar-viajes">
-        <ion-icon name="list-outline"></ion-icon>
+      <ion-tab-button tab="bienvenida">
+        <ion-icon name="home-outline"></ion-icon>
       </ion-tab-button>
-      <ion-tab-button tab="tomar-viaje">
-        <ion-icon name="location-outline"></ion-icon>
-      </ion-tab-button>
-      <ion-tab-button tab="viajes">
-        <ion-icon name="car-sport-outline"></ion-icon>
-      </ion-tab-button>
+
       <ion-tab-button tab="administrador" *ngIf="usuario.tipo=='Administrador'">
         <ion-icon name="business-outline"></ion-icon>
       </ion-tab-button>
+      
+      <!-- Botón de escanear QR en el centro -->
+      <ion-tab-button (click)="scanCode()" class="tab-scan">
+        <ion-icon name="qr-code-outline"></ion-icon>
+        <ion-label>Escanear QR</ion-label>
+      </ion-tab-button>
+      
       <ion-tab-button tab="perfil">
         <ion-icon name="person-circle-outline"></ion-icon> 
-      </ion-tab-button>
-      <ion-tab-button tab="tomar-trabajo" *ngIf="usuario.tipo=='Conductor'">
-        <ion-icon name="clipboard-outline"></ion-icon>
       </ion-tab-button>
     </ion-tab-bar>
   </ion-tabs>

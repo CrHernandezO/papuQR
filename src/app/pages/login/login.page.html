@@ -6,8 +6,8 @@
 
 <ion-content class="login-container">
   <ion-card>
-    <div class="logo-container">
-      <img src="assets/TeLLevoAppLogo.jpeg" alt="Logo de la Aplicación" class="logo">
+    <div class="login">
+      <img src="assets/RegistAPP.png" alt="Logo de la Aplicación" class="logo">
     </div>
 
     <ion-card-header>
@@ -15,14 +15,56 @@
     </ion-card-header>
 
     <ion-card-content>
-      <ion-input [(ngModel)]="email" type="email" label="Correo" labelPlacement="stacked" fill="outline"></ion-input>
-      <br>
-      <ion-input [(ngModel)]="password" type="password" label="Contraseña" labelPlacement="stacked" fill="outline"></ion-input>
-      <br>
-      <ion-button (click)="login()" size="block" class="toolbar-naranja">INGRESAR</ion-button>
-      <br>
-      <p>Olvidaste tu Contraseña?. Puedes Recuperarla Aqui!. <a routerLink="/recuperar">Recuperar Contraseña</a></p>
+      <form (ngSubmit)="login()">
+        <!-- Correo -->
+        <ion-input 
+          [(ngModel)]="email" 
+          name="email"
+          type="email" 
+          label="Correo" 
+          labelPlacement="stacked" 
+          fill="outline" 
+          placeholder="Ingresa tu correo" 
+          aria-label="Correo Electrónico" 
+          required>
+        </ion-input>
+        <br>
+
+        <!-- Contraseña -->
+        <ion-input 
+          [(ngModel)]="password" 
+          name="password"
+          type="password" 
+          label="Contraseña" 
+          labelPlacement="stacked" 
+          fill="outline" 
+          placeholder="Ingresa tu contraseña" 
+          aria-label="Contraseña" 
+          required>
+        </ion-input>
+        <br>
+
+        <!-- Botón de login -->
+        <ion-button 
+          type="submit" 
+          size="block" 
+          class="toolbar-naranja">
+          INGRESAR
+        </ion-button>
+      </form>
+
+      <!-- Recuperación de contraseña -->
+      <p>
+        Olvidaste tu Contraseña? Puedes Recuperarla Aquí! 
+        <a routerLink="/recuperar">Recuperar Contraseña</a>
+      </p>
     </ion-card-content>
   </ion-card>
-  <p>Si No Tienes Cuenta en tu TeLlevo App, puedes Registrate Aqui.   <a routerLink="/registro">Crea tu Cuenta</a></p>
+
+  <!-- Enlace para crear cuenta -->
+  <p>
+    Si No Tienes Cuenta en RegistApp, puedes Registrarte Aquí. 
+    <a routerLink="/registro">Crea tu Cuenta</a>
+  </p>
 </ion-content>
+  
