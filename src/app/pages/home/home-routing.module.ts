@@ -8,6 +8,10 @@ const routes: Routes = [
     component: HomePage,
     children: [
       {
+        path: 'bienvenida',
+        loadChildren: () => import('../bienvenida/bienvenida.module').then( m => m.BienvenidaPageModule)
+      },
+      {
         path: 'perfil',
         loadChildren: () => import('../perfil/perfil.module').then( m => m.PerfilPageModule)
       },

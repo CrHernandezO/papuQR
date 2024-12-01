@@ -1,25 +1,11 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-buttons slot="start">
-      <ion-back-button></ion-back-button>
-    </ion-buttons>
-    <ion-title>Inicio</ion-title>
-  </ion-toolbar>
-</ion-header>
-  
 
 <ion-content [fullscreen]="true" class="inicio-content">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Inicio</ion-title>
-    </ion-toolbar>
-  </ion-header>
-  
+
   <div id="container">
     <ion-card class="inicio-card">
       <ion-card-header>
         <ion-card-title>
-          <h1>¡Hola, {{username}}!</h1>
+          <h1>¡Hola,  {{usuario.nombre | titlecase}}!</h1>
         </ion-card-title>
         <ion-card-subtitle>¡Bienvenido/a a tu perfil!</ion-card-subtitle>
       </ion-card-header>
