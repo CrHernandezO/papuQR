@@ -8,7 +8,7 @@ import { map } from 'rxjs/operators';
 })
 export class ApiService {
   private apiUrl = 'http://localhost:3000'; // Asegúrate de que JSON Server esté corriendo
-  private currentUser: any = null;  // Variable para almacenar al usuario autenticado
+  private currentUser: any = null;  // Variable en memoria para almacenar al usuario autenticado
 
   constructor(private http: HttpClient) {}
 
@@ -31,56 +31,62 @@ export class ApiService {
       .pipe(
         map(users => {
           if (users.length > 0) {
-            this.currentUser = users[0];  // Guarda al usuario autenticado
+            this.currentUser = users[0]; // Guarda al usuario autenticado en memoria
             console.log('Usuario autenticado:', this.currentUser);
-            return users[0];  // Retorna el primer usuario
+            return users[0]; // Retorna el primer usuario encontrado
           }
           return null; // Si no se encuentra un usuario, retorna null
         })
       );
   }
 
-  // Obtener perfil de usuario por ID
-  getUserProfile(userId: number): Observable<any> {
-    return this.http.get(`${this.apiUrl}/users/${userId}`);
-  }
-
-  // Recuperar contraseña (simulado con JSON Server)
+  // Recuperar contraseña
   recoverPassword(email: string): Observable<any> {
     return this.http.get<any[]>(`${this.apiUrl}/users?email=${email}`).pipe(
       map(users => (users.length > 0 ? users[0] : null)) // Retorna el usuario si existe
     );
   }
-
-
-  // Obtener un usuario por su rut
-  getUserByRut(rut: string): Observable<any> {
-    return this.http.get<any[]>(`${this.apiUrl}/users?rut=${rut}`).pipe(
-      map(users => users.length > 0 ? users[0] : null)  // Si existe un usuario, lo retornamos, sino null
-    );
+  // Obtener el perfil de usuario por ID
+  getUserProfile(userId: string): Observable<any> {
+    return this.http.get(`${this.apiUrl}/users/${userId}`);
   }
 
-  // api.service.ts
+
+  // Obtener todos los usuarios si no se pasa un rut específico
+  getUserByRut(rut: string = ''): Observable<any[]> {
+    const url = rut ? `${this.apiUrl}/users?rut=${rut}` : `${this.apiUrl}/users`;
+    return this.http.get<any[]>(url);
+  }
+
+  // Actualizar usuario por ID
   updateUser(userId: string, userData: any): Observable<any> {
     return this.http.put(`${this.apiUrl}/users/${userId}`, userData);
   }
 
+  // Cambiar estado de asistencia
+  updateAttendance(userId: string, attendance: string): Observable<any> {
+    return this.http.patch(`${this.apiUrl}/users/${userId}`, { asistencia: attendance });
+  }
 
-
-  // Función para obtener el usuario autenticado
+  // Obtener el usuario autenticado actualmente
   getAuthenticatedUser() {
     return this.currentUser;
   }
 
-  // Función para actualizar el usuario autenticado
+  // Actualizar el usuario autenticado
   setAuthenticatedUser(user: any) {
-    this.currentUser = user;
-    localStorage.setItem('usuario', JSON.stringify(user));  // Guarda el usuario en localStorage si deseas mantener la sesión
+    this.currentUser = user; // Solo actualiza la variable en memoria
   }
-  // Limpiar la sesión del usuario
+
+  // Limpiar la sesión del usuario autenticado
   clearAuthenticatedUser() {
     this.currentUser = null;
   }
+  // ApiService
 
+  // Eliminar usuario por ID
+  deleteUser(userId: string): Observable<any> {
+    return this.http.delete(`${this.apiUrl}/users/${userId}`);
+  }
 
 }

@@ -1,6 +1,17 @@
+<ion-header>
+  <ion-toolbar class="toolbar-turquesa">
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/login"></ion-back-button>
+    </ion-buttons>
+    <ion-title>{{titulo}}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
 <ion-content>
   <ion-card>
-    <ion-card-header>Lista de Usuarios Registrados</ion-card-header>
+    <ion-card-header>
+      <ion-card-title color="dark">Usuarios Registrados</ion-card-title>
+    </ion-card-header>
     <ion-card-content>
       <ion-list>
         <ion-item *ngFor="let usuario of usuarios">
@@ -13,19 +24,17 @@
       </ion-list>
     </ion-card-content>
   </ion-card>
- 
-  
+
   <ion-card>
-    <form [formGroup]="persona" (ngSubmit)="registroUsuario()">
-      <!-- Campos del formulario -->
-      <ion-input formControlName="correo" type="text" labelPlacement="stacked" label="Correo Institucional"></ion-input>
-      <ion-text *ngIf="persona?.get('correo')?.hasError('required') && persona?.get('correo')?.touched" color="danger">
-        El correo es obligatorio.
+    <form [formGroup]="persona" (ngSubmit)="guardarCambios()">
+      <ion-input formControlName="email" type="text" labelPlacement="stacked" label="Correo Institucional"></ion-input>
+      <ion-text *ngIf="persona?.get('email')?.hasError('required') && persona?.get('email')?.touched" color="danger">
+        El email es obligatorio.
       </ion-text>
-      <ion-text *ngIf="persona?.get('correo')?.hasError('pattern') && persona?.get('correo')?.touched" color="danger">
-        Formato de correo no válido.
+      <ion-text *ngIf="persona?.get('email')?.hasError('pattern') && persona?.get('email')?.touched" color="danger">
+        Formato de email no válido.
       </ion-text>
-      
+
       <ion-input formControlName="numero_celular" type="text" labelPlacement="stacked" label="Número de Celular"></ion-input>
       <ion-text *ngIf="persona?.get('numero_celular')?.hasError('required') && persona?.get('numero_celular')?.touched" color="danger">
         El número de celular es obligatorio.
@@ -33,62 +42,66 @@
       <ion-text *ngIf="persona?.get('numero_celular')?.hasError('pattern') && persona?.get('numero_celular')?.touched" color="danger">
         El número de celular debe tener el formato +569XXXXXXXX.
       </ion-text>
-      
+
       <ion-input formControlName="rut" type="text" labelPlacement="stacked" label="RUT"></ion-input>
       <ion-text *ngIf="persona?.get('rut')?.hasError('required') && persona?.get('rut')?.touched" color="danger">
         El RUT es obligatorio.
       </ion-text>
-      <ion-text *ngIf="persona?.get('rut')?.hasError('rutInvalido') && persona?.get('rut')?.touched && !persona?.get('rut')?.hasError('required')" color="danger">
+      <ion-text *ngIf="persona?.get('rut')?.hasError('rutInvalido') && persona?.get('rut')?.touched" color="danger">
         El RUT ingresado es incorrecto. Verifique el número y el dígito verificador.
       </ion-text>
-      
-      <ion-input formControlName="nombre" type="text" label="Nombre" labelPlacement="stacked"></ion-input>
+
+      <ion-input formControlName="nombre" type="text" labelPlacement="stacked" label="Nombre"></ion-input>
       <ion-text *ngIf="persona?.get('nombre')?.hasError('required') && persona?.get('nombre')?.touched" color="danger">
         El nombre es obligatorio.
       </ion-text>
-      
+      <ion-text *ngIf="persona?.get('nombre')?.hasError('pattern') && persona?.get('nombre')?.touched" color="danger">
+        El nombre solo puede contener letras.
+      </ion-text>
+
       <ion-input formControlName="apellido" type="text" labelPlacement="stacked" label="Apellido"></ion-input>
       <ion-text *ngIf="persona?.get('apellido')?.hasError('required') && persona?.get('apellido')?.touched" color="danger">
         El apellido es obligatorio.
       </ion-text>
-      
-      <ion-input formControlName="password" type="password" labelPlacement="stacked" label="Contraseña (Mínimo 8 caracteres.)"></ion-input>
-      <ion-text *ngIf="persona?.get('password')?.hasError('required') && persona?.get('password')?.touched" color="danger">
-        La password es obligatoria.
+      <ion-text *ngIf="persona?.get('apellido')?.hasError('pattern') && persona?.get('apellido')?.touched" color="danger">
+        El apellido solo puede contener letras.
       </ion-text>
-      
+
+      <ion-input formControlName="password" type="password" labelPlacement="stacked" label="Contraseña"></ion-input>
+      <ion-text *ngIf="persona?.get('password')?.hasError('required') && persona?.get('password')?.touched" color="danger">
+        La contraseña es obligatoria.
+      </ion-text>
+      <ion-text *ngIf="persona?.get('password')?.hasError('minlength') && persona?.get('password')?.touched" color="danger">
+        La contraseña debe tener al menos 8 caracteres.
+      </ion-text>
+
       <ion-input formControlName="re_password" type="password" labelPlacement="stacked" label="Repetir Contraseña"></ion-input>
+      <ion-text *ngIf="persona?.get('re_password')?.hasError('required') && persona?.get('re_password')?.touched" color="danger">
+        Repetir la contraseña es obligatorio.
+      </ion-text>
       <ion-text *ngIf="persona?.hasError('noCoinciden') && persona?.get('re_password')?.touched" color="danger">
         Las contraseñas no coinciden.
       </ion-text>
-      
-      <ion-input formControlName="fecha_nacimiento" type="date" labelPlacement="stacked" label="Fecha Nacimiento"></ion-input>
-      <ion-text *ngIf="persona?.get('fecha_nacimiento')?.hasError('required') && persona?.get('fecha_nacimiento')?.touched" color="danger">
-        La fecha de nacimiento es obligatoria.
-      </ion-text>
+
+      <ion-input formControlName="fecha_nacimiento" type="date" labelPlacement="stacked" label="Fecha de Nacimiento"></ion-input>
       <ion-text *ngIf="persona?.get('fecha_nacimiento')?.hasError('menorDeEdad') && persona?.get('fecha_nacimiento')?.touched" color="danger">
-        Debes tener al menos 18 años para crear una cuenta.
+        Debes tener al menos 18 años.
       </ion-text>
-      
-      <ion-label>Tiene Asignaturasa instruir?:</ion-label>
+
+      <ion-label>Instruye Asignaturas:</ion-label>
       <br>
       <ion-radio-group formControlName="esprofesor">
-        <ion-radio value="si" style="margin: 5%;">Sí</ion-radio>
-
-        <ion-radio value="no" style="margin: 5%;">No</ion-radio>
+        <ion-radio value="si">Si</ion-radio>
+        <ion-radio value="no">No</ion-radio>
       </ion-radio-group>
-      <br>
-      <!-- Botones -->
-       <!-- Formulario para editar o agregar usuarios -->
-       <form [formGroup]="persona" (ngSubmit)="guardarCambios()">
-        <!-- Otros campos del formulario aquí -->
-        <ion-button type="submit" size="block">{{ editando ? 'Guardar Cambios' : 'Registrar' }}</ion-button>
-      </form>
-      <ion-button type="button" size="block" (click)="limpiarFormulario()">LIMPIAR</ion-button>
-      <!--ion-button size="block" class="toolbar-naranja" (click)="mostrarUsuariosJson()">MOSTRAR USUARIOS (JSON)</ion-button>-->
-      
+
+      <!-- Campos solo visibles si es profesor -->
+      <ion-input *ngIf="persona.controls['esprofesor'].value == 'si'" formControlName="asignatura" type="text" label="Nombre Asignatura" labelPlacement="stacked"></ion-input>
+      <ion-input *ngIf="persona.controls['esprofesor'].value == 'si'" formControlName="cant_alum" type="number" label="Cantidad de alumnos (Minimo 4, Maximo 32)" labelPlacement="stacked"></ion-input>
+      <ion-input *ngIf="persona.controls['esprofesor'].value == 'si'" formControlName="anio_inscripcion" type="text" label="Año de Inscripcion" labelPlacement="stacked"></ion-input>
+
+      <ion-button type="submit" size="block" class="toolbar-naranja" [disabled]="persona.invalid">REGISTRAR</ion-button>
+      <ion-button type="button" size="block" color="secondary" (click)="limpiarFormulario()">LIMPIAR</ion-button>
     </form>
   </ion-card>
-
-
 </ion-content>

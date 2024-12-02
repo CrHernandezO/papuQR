@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { NavController, AlertController } from '@ionic/angular';
 import { BarcodeScanner } from '@capacitor-community/barcode-scanner';
 import { ApiService } from 'src/app/api.service';  // Asegúrate de importar el servicio
+import emailjs from '@emailjs/browser';
 
 @Component({
   selector: 'app-home',
@@ -30,26 +31,73 @@ export class HomePage implements OnInit {
     }
   }
 
-  // Función para escanear códigos QR o barras
-  scanCode() {
-    BarcodeScanner.prepare() // Prepara el escáner
-      .then(() => {
-        return BarcodeScanner.startScan(); // Comienza el escaneo
-      })
-      .then((scanResult) => {
-        if (scanResult.hasContent) {
-          console.log('Resultado del escaneo:', scanResult.content);
-          this.showAlert('Resultado del Escaneo', scanResult.content);  // Mostrar alerta con resultado
-        } else {
-          console.log('Escaneo cancelado o sin contenido.');
-          this.showAlert('Escaneo Cancelado', 'No se detectó ningún contenido.'); // Mensaje si no hay contenido
-        }
-      })
-      .catch(err => {
-        console.error('Error al escanear:', err);
-        this.showAlert('Error', 'Hubo un error al intentar escanear el código.');
-      });
+  async sendEmail() {
+    if (!this.usuario.correo) {
+      console.error('El correo del usuario está vacío.');
+      this.showAlert('Error', 'No se puede enviar el correo porque la dirección está vacía.');
+      return;
+    }
+  
+    // Obtener la fecha y hora actual
+    const fechaActual = new Date();
+    const fechaFormateada = `${fechaActual.toLocaleDateString()} ${fechaActual.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}`;
+  
+    // Construir los parámetros para el correo
+    const templateParams = {
+      user_name: this.usuario.nombre, // Nombre del usuario
+      user_rut: this.usuario.rut,    // RUT del usuario
+      message: `RUT: ${this.usuario.rut}, Fecha y Hora: ${fechaFormateada}`, // Mensaje dinámico
+      user_email: this.usuario.correo // Correo del usuario autenticado
+    };
+  
+    try {
+      // Enviar correo usando EmailJS
+      const result = await emailjs.send(
+        'service_lwu745r',   // Reemplaza con tu Service ID
+        'template_1d449n2',  // Reemplaza con tu Template ID
+        templateParams,
+        '06juL3Kq6d_ohh3OC'  // Reemplaza con tu Public Key
+      );
+  
+      console.log('Correo enviado:', result.text);
+      this.showAlert('Correo enviado', 'Se envió un correo de confirmación de asistencia.');
+    } catch (error) {
+      console.error('Error al enviar el correo:', error);
+      this.showAlert('Error', 'Hubo un problema al enviar el correo.');
+    }
   }
+
+  // Función para escanear códigos QR o barras
+  async scanCode() {
+    try {
+      await BarcodeScanner.prepare();
+      const scanResult = await BarcodeScanner.startScan();
+  
+      if (scanResult.hasContent) {
+        console.log('Resultado del escaneo:', scanResult.content);
+  
+        // Supongamos que actualizamos la asistencia aquí
+        const result = await this.apiService.updateAttendance(scanResult.content, 'presente');
+  
+        if (result) {
+          // Enviar correo al usuario
+          await this.sendEmail();
+  
+          // Mostrar mensaje de éxito
+          this.showAlert('Asistencia', '¡Has quedado presente y se envió un correo de confirmación!');
+        } else {
+          this.showAlert('Error', 'No se pudo actualizar tu asistencia.');
+        }
+      } else {
+        this.showAlert('Escaneo Cancelado', 'No se detectó ningún contenido.');
+      }
+    } catch (err) {
+      console.error('Error al escanear:', err);
+      this.showAlert('Error', 'Hubo un error al intentar escanear el código.');
+    }
+  }
+  
+  
 
   // Función para mostrar alertas
   async showAlert(header: string, message: string) {

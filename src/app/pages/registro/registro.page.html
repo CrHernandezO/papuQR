@@ -14,13 +14,13 @@
     </ion-card-header>
 
     <form [formGroup]="persona" (ngSubmit)="registroUsuario()">
-      <!-- Correo -->
-      <ion-input formControlName="correo" type="text" labelPlacement="stacked" label="Correo Institucional"></ion-input>
-      <ion-text *ngIf="persona?.get('correo')?.hasError('required') && persona?.get('correo')?.touched" color="danger">
-        El correo es obligatorio.
+      <!-- email -->
+      <ion-input formControlName="email" type="text" labelPlacement="stacked" label="email Institucional"></ion-input>
+      <ion-text *ngIf="persona?.get('email')?.hasError('required') && persona?.get('email')?.touched" color="danger">
+        El email es obligatorio.
       </ion-text>
-      <ion-text *ngIf="persona?.get('correo')?.hasError('pattern') && persona?.get('correo')?.touched" color="danger">
-        Formato de correo no válido.
+      <ion-text *ngIf="persona?.get('email')?.hasError('pattern') && persona?.get('email')?.touched" color="danger">
+        Formato de email no válido.
       </ion-text>
 
       <!-- Número Celular -->

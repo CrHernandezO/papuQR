@@ -26,7 +26,7 @@ export class RegistroPage implements OnInit {
     private router: Router
   ) {
     this.persona = this.formBuilder.group({
-      correo: ['', [Validators.required, Validators.pattern('^[a-zA-Z0-9._%+-]+@duocuc\\.cl$')]],  
+      email: ['', [Validators.required, Validators.pattern('^[a-zA-Z0-9._%+-]+@duocuc\\.cl$')]],  
       numero_celular: ['', [Validators.required, Validators.pattern('^\\+569[0-9]{8}$')]], 
       rut: ['', [Validators.required, Validators.minLength(9), Validators.maxLength(10), this.validarRut.bind(this)]],  
       nombre: ['', [Validators.required, Validators.pattern("^[a-zA-ZáéíóúÁÉÍÓÚñÑ ]+$")]], 
@@ -37,7 +37,8 @@ export class RegistroPage implements OnInit {
       esprofesor: ['', Validators.required],
       asignatura: [''],
       cant_alum: [''],
-      anio_inscripcion: ['']
+      anio_inscripcion: [''],
+      asistencia: ['ausente']
     }, { validators: this.passwordsCoinciden });
 
     // Lógica para validaciones dinámicas
@@ -60,7 +61,7 @@ export class RegistroPage implements OnInit {
   // Validar que las passwords coincidan
   passwordsCoinciden(formGroup: AbstractControl) {
     const password = formGroup.get( 'password')?.value;
-    const re_password = formGroup.get('rep_password')?.value;
+    const re_password = formGroup.get('re_password')?.value;
     return password === re_password ? null : { noCoinciden: true };
   }
 

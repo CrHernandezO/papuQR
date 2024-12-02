@@ -15,41 +15,43 @@
       "nombre": "Takamura",
       "apellido": "Riquelme",
       "password": "12345678",
-      "fecha_nacimiento": "1999-08-15"
+      "fecha_nacimiento": "1999-08-15",
+      "asistencia": "ausente",
+      "esprofesor": "no"
     },
     {
-      "id": "a712",
-      "email": "cr.hernandezo@duocuc.cl",
-      "password": "Titopollo12.",
-      "rep_password": "Titopollo12.",
-      "rut": "21512189-5",
-      "nombre": "crist",
-      "apellido": "hernan",
+      "id": "0717",
+      "tipo": "alumno",
+      "email": "cro.hernandezo@duocuc.cl",
       "numero_celular": "+56932394483",
+      "rut": "21512189-5",
+      "nombre": "cris",
+      "apellido": "hernandez",
+      "password": "Titopollo12.",
+      "re_password": "Titopollo12.",
       "fecha_nacimiento": "2004-02-21",
       "esprofesor": "si",
-      "asignatura": "PGTY",
+      "asignatura": "MTY",
       "cant_alum": 20,
-      "anio_inscripcion": "2024",
-      "tipo": "Profesor"
-    }
-  ],
-  "login": [
-    {
-      "id": "9890",
-      "email": "cr.hernandezo@duocuc.cl",
-      "password": "Titopollo12."
+      "anio_inscripcion": "2024"
     },
     {
-      "id": "041b",
+      "id": "2474",
       "email": "cr.hernandezo@duocuc.cl",
-      "password": "Titopollo12."
-    },
-    {
-      "id": "099c",
-      "email": "cr.hernandezo@duocuc.cl",
-      "password": "Titopollo12."
+      "numero_celular": "+56932394483",
+      "rut": "21512189-5",
+      "nombre": "Cristobal",
+      "apellido": "Hernandez",
+      "password": "Titopollo12.",
+      "re_password": "Titopollo12.",
+      "fecha_nacimiento": "2004-02-21",
+      "esprofesor": "no",
+      "asignatura": "",
+      "cant_alum": "",
+      "anio_inscripcion": "",
+      "tipo": "Alumno"
     }
   ],
+  "login": [],
   "recover": []
 }
