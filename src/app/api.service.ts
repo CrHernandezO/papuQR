@@ -2,43 +2,62 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
+import { catchError } from 'rxjs/operators';
+import { throwError } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ApiService {
-  private apiUrl = 'http://localhost:3000'; // Asegúrate de que JSON Server esté corriendo
+  //cambiar por ip
+  private apiUrl = 'http://localhost:3000/users';  // Usar la IP local de tu máquina
   private currentUser: any = null;  // Variable en memoria para almacenar al usuario autenticado
 
   constructor(private http: HttpClient) {}
-
-  // Registro de usuario
-  registerUser(user: any): Observable<any> {
-    return this.http.post(`${this.apiUrl}/users`, user);
+  getUsuarios() {
+    return this.http.get(this.apiUrl);
   }
+  registerUser(user: any): Observable<any> {
+    return this.http.post(this.apiUrl, user);  // Solo usar `this.apiUrl`
+  }
+  
 
   // Login de usuario
   loginUser(credentials: { email: string; password: string }): Observable<any> {
     if (!credentials.email || !credentials.password) {
+      console.error('Campos de login vacíos:', credentials);  // Registra los valores de los campos vacíos
       return new Observable(observer => {
-        observer.next(null); // Devuelve null si los datos son inválidos
+        observer.next(null); 
         observer.complete();
       });
     }
-
+  
     return this.http
-      .get<any[]>(`${this.apiUrl}/users?email=${credentials.email}&password=${credentials.password}`)
+      .get<any[]>(`${this.apiUrl}?email=${credentials.email}&password=${credentials.password}`)
       .pipe(
         map(users => {
           if (users.length > 0) {
-            this.currentUser = users[0]; // Guarda al usuario autenticado en memoria
+            this.currentUser = users[0];
             console.log('Usuario autenticado:', this.currentUser);
-            return users[0]; // Retorna el primer usuario encontrado
+            return users[0]; 
           }
-          return null; // Si no se encuentra un usuario, retorna null
+          return null; 
+        }),
+        catchError((error) => {
+          console.error('Error en loginUser:', error);  // Registra el error completo
+          if (error instanceof ErrorEvent) {
+            console.error('Error en cliente:', error.error.message);  // Registra errores del cliente
+          } else {
+            console.error('Error en servidor:', error.status, error.message);  // Registra errores del servidor
+          }
+          return throwError(error);  // Usa throwError en lugar de Observable.throw
         })
       );
   }
+  
+  
+
+  
 
   // Recuperar contraseña
   recoverPassword(email: string): Observable<any> {

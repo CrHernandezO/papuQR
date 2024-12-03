@@ -50,6 +50,23 @@
       "cant_alum": "",
       "anio_inscripcion": "",
       "tipo": "Alumno"
+    },
+    {
+      "id": "ccdb",
+      "email": "cr.hernandezo@duocuc.cl",
+      "numero_celular": "+56932394483",
+      "rut": "21512189-5",
+      "nombre": "Cristobal",
+      "apellido": "Hernandez",
+      "password": "Titopollo12.",
+      "re_password": "Titopollo12.",
+      "fecha_nacimiento": "2004-02-21",
+      "esprofesor": "no",
+      "asignatura": "",
+      "cant_alum": "",
+      "anio_inscripcion": "",
+      "asistencia": "ausente",
+      "tipo": "Alumno"
     }
   ],
   "login": [],

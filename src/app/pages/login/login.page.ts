@@ -36,7 +36,6 @@ export class LoginPage implements OnInit {
       password: this.password,
     };
   
-    // Validar si los campos no están vacíos
     if (!credentials.email || !credentials.password) {
       await loading.dismiss();
       const alert = await this.alertController.create({
@@ -48,33 +47,28 @@ export class LoginPage implements OnInit {
       return;
     }
   
-    // Llamar al servicio para realizar el login
+    console.log('Intentando iniciar sesión con:', credentials);  // Log los datos enviados
+  
     this.apiService.loginUser(credentials).subscribe(
       async (user) => {
         await loading.dismiss();
-  
         if (user) {
-          // Almacenar usuario en ApiService
           console.log('Login exitoso. Redirigiendo a /home...');
-          this.router.navigate(['/home']); // Redirigir a home
+          this.router.navigate(['/home']);
         } else {
-          // Si no existe, mostrar una alerta de error
           const alert = await this.alertController.create({
             header: 'Error',
             message: 'El Correo o la Contraseña son Incorrectos!',
             buttons: ['Aceptar'],
           });
           await alert.present();
-  
-          // Limpiar los campos del formulario
           this.email = '';
           this.password = '';
         }
       },
       async (error) => {
-        console.error('Error en el login:', error);
         await loading.dismiss();
-  
+        console.error('Error en el login:', error);  // Error detallado en la consola
         const alert = await this.alertController.create({
           header: 'Error',
           message: 'Ocurrió un error al intentar iniciar sesión.',
@@ -84,6 +78,8 @@ export class LoginPage implements OnInit {
       }
     );
   }
+  
+  
   
   
 }  
