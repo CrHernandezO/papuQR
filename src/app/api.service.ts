@@ -10,7 +10,7 @@ import { throwError } from 'rxjs';
 })
 export class ApiService {
   //cambiar por ip
-  private apiUrl = 'http://192.168.3.47:3000/users';  // Usar la IP local de tu máquina
+  private apiUrl = 'https://8pf1zfpw-3000.brs.devtunnels.ms/users';  // Usar la IP local de tu máquina
   private currentUser: any = null;  // Variable en memoria para almacenar al usuario autenticado
 
   constructor(private http: HttpClient) {}
