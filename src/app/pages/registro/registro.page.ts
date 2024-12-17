@@ -87,22 +87,24 @@ export class RegistroPage implements OnInit {
     await alert.present();
   }
 
-  // Función para registrar al usuario
   public async registroUsuario(): Promise<void> {
     try {
       const usuarioData = { ...this.persona.value };
       usuarioData.fecha_nacimiento = moment(usuarioData.fecha_nacimiento).format('YYYY-MM-DD');
-      
+  
+      // Asignar tipo de usuario y asistencia predeterminada
       if (usuarioData.esprofesor === 'si') {
-        usuarioData.tipo = 'Profesor';  
+        usuarioData.tipo = 'Profesor';
+        delete usuarioData.asistencia; // Eliminar asistencia para profesores
       } else {
-        usuarioData.tipo = 'Alumno'; 
+        usuarioData.tipo = 'Alumno';
+        usuarioData.asistencia = 'ausente'; // Asignar asistencia predeterminada para alumnos
       }
-
-      // Usar ApiService para registrar el usuario en el servidor
+  
+      // Registrar usuario en el servidor
       this.apiService.registerUser(usuarioData).subscribe(
         async (response) => {
-          console.log("El Usuario se ha creado con éxito!", response);
+          console.log('El Usuario se ha creado con éxito!', response);
           this.mostrarNotificacion('Usuario creado', 'El usuario ha sido registrado con éxito.', true);
         },
         (error) => {
@@ -111,10 +113,11 @@ export class RegistroPage implements OnInit {
         }
       );
     } catch (error) {
-      console.log("Ocurrió un error durante el registro del usuario", error);
+      console.log('Ocurrió un error durante el registro del usuario', error);
     }
   }
-
+  
+  
   // Método para mostrar notificaciones de éxito o error
   private async mostrarNotificacion(header: string, message: string, redirigir: boolean): Promise<void> {
     const alert = await this.alertController.create({

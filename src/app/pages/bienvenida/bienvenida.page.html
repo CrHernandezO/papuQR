@@ -1,21 +1,45 @@
-
 <ion-content [fullscreen]="true" class="inicio-content">
-
   <div id="container">
     <ion-card class="inicio-card">
       <ion-card-header>
         <ion-card-title>
-          <h1>¡Hola,  {{usuario.nombre | titlecase}}!</h1>
+          <h1>¡Hola, {{usuario.nombre | titlecase}}!</h1>
         </ion-card-title>
         <ion-card-subtitle>¡Bienvenido/a a tu perfil!</ion-card-subtitle>
       </ion-card-header>
       <ion-card-content>
-        <p class="welcome-message">Estamos encantados de tenerte aquí. Explora la aplicación y disfruta de todas nuestras funcionalidades.</p>
+        <p class="welcome-message">
+          Estamos encantados de tenerte aquí. Explora la aplicación y disfruta de todas nuestras funcionalidades.
+        </p>
       </ion-card-content>
-        <ion-toolbar>
-          <ion-title>Plataforma Detectada</ion-title>
-        </ion-toolbar>      
-        <p>Estás usando la plataforma: <strong>{{ plataforma }}</strong></p>
+      <ion-toolbar>
+        <ion-title>Plataforma Detectada</ion-title>
+      </ion-toolbar>
+      <p>Estás usando la plataforma: <strong>{{ plataforma }}</strong></p>
     </ion-card>
+
+    <div class="login" (click)="onNutriaClick()">
+      <img src="assets/img/nutria.jpeg" alt="Logo de la Aplicación" class="nutria">
+    </div>
+
+    <div *ngIf="usuario.esprofesor === 'si'">
+      <ion-card>
+        <ion-card-header>
+          <ion-card-title>Lista de Usuarios</ion-card-title>
+          <ion-card-subtitle>Estado de asistencia</ion-card-subtitle>
+        </ion-card-header>
+        <ion-card-content>
+          <ion-list>
+            <ion-item *ngFor="let user of usuarios">
+              <ion-label>
+                <h2>{{ user.rut }}</h2>
+                <h2>{{ user.nombre }}</h2>
+                <p>Asistencia: {{ user.asistencia | titlecase }}</p>
+              </ion-label>
+            </ion-item>
+          </ion-list>
+        </ion-card-content>
+      </ion-card>
+    </div>
   </div>
 </ion-content>
